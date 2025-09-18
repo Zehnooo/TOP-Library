@@ -16,6 +16,7 @@ function addBookToLibrary(title, author, pages, isRead){
     myLibrary.push(book);
 }
 
+// test books
 addBookToLibrary("Test","Jeffery","24",true);
 addBookToLibrary("Test2","Jefferson","36",false);
 addBookToLibrary("Dune", "Frank Herbert", 412, true);
@@ -23,7 +24,14 @@ addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, false);
 addBookToLibrary("1984", "George Orwell", 328, true);
 addBookToLibrary("The Catcher in the Rye", "J.D. Salinger", 277, false);
 
-for (const book of myLibrary){
+function updateGrid(){
+    bookGrid.textContent = "";
+    for (const book of myLibrary){
+        bookGrid.append(createBookCard(book));
+    }
+}
+
+function createBookCard(book){
     const card = document.createElement("div");
     card.classList.add("book-card");
     const title = document.createElement("p");
@@ -40,8 +48,12 @@ for (const book of myLibrary){
         isRead.textContent = "has not been read";
     }
     card.append(title, author, pages, isRead);
-    bookGrid.append(card);
+    return card;
 }
+
+// initialize the grid for testing
+updateGrid();
+
 newBookBtn.addEventListener("click", () => {form.showModal();})
 const closeBtn = form.querySelector("#close-form");
 closeBtn.addEventListener("click", () => {form.close();});
@@ -59,6 +71,13 @@ submitBtn.addEventListener("click", (e) => {
         }
     });
     console.log(bookData);
+    if (bookData){
+        const title = bookData[0];
+        const author = bookData[1];
+        const pages = bookData[2];
+        const isRead = bookData[3];
+        addBookToLibrary(title, author, pages, isRead);
+    }
 });
 
 
