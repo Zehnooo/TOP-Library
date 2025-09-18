@@ -1,7 +1,7 @@
 const bookGrid = document.querySelector('#grid');
-const addBookBtn = document.querySelector('#new-book');
+const newBookBtn = document.querySelector('#new-book');
+const form = document.querySelector("dialog");
 const myLibrary = [];
-
 
 function Book(title, author, pages, isRead){
     this.id = crypto.randomUUID();
@@ -43,6 +43,8 @@ for (const book of myLibrary){
     bookGrid.append(card);
 }
 
-addBookBtn.addEventListener("click", () => {
-    console.log("hello");
+newBookBtn.addEventListener("click", () => {
+    form.showModal();
+    const closeBtn = form.querySelector("#close-form");
+    closeBtn.addEventListener("click", () => {form.close();})
 });
