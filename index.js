@@ -42,9 +42,23 @@ for (const book of myLibrary){
     card.append(title, author, pages, isRead);
     bookGrid.append(card);
 }
-
-newBookBtn.addEventListener("click", () => {
-    form.showModal();
-    const closeBtn = form.querySelector("#close-form");
-    closeBtn.addEventListener("click", () => {form.close();})
+newBookBtn.addEventListener("click", () => {form.showModal();})
+const closeBtn = form.querySelector("#close-form");
+closeBtn.addEventListener("click", () => {form.close();});
+const submitBtn = form.querySelector("#submit");
+submitBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const inputs = form.querySelectorAll("input");
+    console.log(inputs);
+    const bookData = [];
+    inputs.forEach(input => {
+        if (input.type === "checkbox") {
+            bookData.push(input.checked);
+        } else {
+            bookData.push(input.value);
+        }
+    });
+    console.log(bookData);
 });
+
+
