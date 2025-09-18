@@ -1,6 +1,7 @@
 const bookGrid = document.querySelector('#grid');
 const newBookBtn = document.querySelector('#new-book');
-const form = document.querySelector("dialog");
+const custDialog = document.querySelector("dialog");
+const custForm = custDialog.querySelector("form");
 const myLibrary = [];
 
 function Book(title, author, pages, isRead){
@@ -54,30 +55,46 @@ function createBookCard(book){
 // initialize the grid for testing
 updateGrid();
 
-newBookBtn.addEventListener("click", () => {form.showModal();})
-const closeBtn = form.querySelector("#close-form");
-closeBtn.addEventListener("click", () => {form.close();});
-const submitBtn = form.querySelector("#submit");
+newBookBtn.addEventListener("click", () => {custDialog.showModal();})
+const closeBtn = custDialog.querySelector("#close-form");
+closeBtn.addEventListener("click", () => {custDialog.close();});
+const submitBtn = custForm.querySelector("#submit");
 submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    const inputs = form.querySelectorAll("input");
-    console.log(inputs);
+    const inputs = custForm.querySelectorAll("input");
     const bookData = [];
-    inputs.forEach(input => {
+
+    for (const input of inputs) {
         if (input.type === "checkbox") {
             bookData.push(input.checked);
-        } else {
-            bookData.push(input.value);
+        } else if (input.type === "text") {
+            if (input.value === "") {
+                alert("Missing book info. Please try again.");
+                return;
+            } else {
+                bookData.push(input.value);
+            }
+        } else if (input.type === "number") {
+            if (input.value <= 0 || input.value === "") {
+                alert("Page count cannot be empty or less than zero");
+                return;
+            } else {
+                bookData.push(input.value);
+            }
         }
-    });
-    console.log(bookData);
+    }
     if (bookData){
         const title = bookData[0];
         const author = bookData[1];
         const pages = bookData[2];
         const isRead = bookData[3];
         addBookToLibrary(title, author, pages, isRead);
+        updateGrid();
+
     }
+    custForm.reset();
+    custDialog.close();
+
 });
 
 
