@@ -4,6 +4,10 @@ const custDialog = document.querySelector("dialog");
 const custForm = custDialog.querySelector("form");
 const myLibrary = [];
 
+function setGridDisplay() {
+    myLibrary.length === 0 ? bookGrid.style.display = "none" : bookGrid.style.display = "grid";
+}
+
 function Book(title, author, pages, isRead){
     this.id = crypto.randomUUID();
     this.title = title;
@@ -25,7 +29,9 @@ addBookToLibrary("Dune", "Frank Herbert", 412, true);
 addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, false);
 addBookToLibrary("1984", "George Orwell", 328, true);
 addBookToLibrary("The Catcher in the Rye", "J.D. Salinger", 277, false);
-*/
+
+ */
+setGridDisplay();
 
 function updateGrid(){
     bookGrid.textContent = "";
@@ -95,11 +101,15 @@ updateGrid();
 
 newBookBtn.addEventListener("click", () => {custDialog.showModal();})
 const closeBtn = custDialog.querySelector("#close-form");
-closeBtn.addEventListener("click", () => {custDialog.close();});
+closeBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    custDialog.close();
+});
 const submitBtn = custForm.querySelector("#submit");
 submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
     saveBook();
+    setGridDisplay();
     updateGrid();
     custForm.reset();
     custDialog.close();
@@ -108,6 +118,7 @@ const submitAndNew = document.querySelector("#submit-more");
 submitAndNew.addEventListener("click", (e) => {
     e.preventDefault();
     saveBook();
+    setGridDisplay();
     updateGrid();
     custForm.reset();
 })
