@@ -36,13 +36,24 @@ function createBookCard(book){
     const card = document.createElement("div");
     card.classList.add("book-card");
     card.setAttribute("data-book-id", book.id);
-    const title = document.createElement("p");
+
+    const title = document.createElement("h2");
+    title.classList.add("title");
     title.textContent = book.title;
-    const author = document.createElement("p");
-    author.textContent = book.author;
+
+    const author = document.createElement("h3");
+    author.classList.add("author");
+    author.textContent = `By: ${book.author}`;
+
     const pages = document.createElement("p");
-    pages.textContent = book.pages;
+    pages.classList.add("pages");
+    pages.textContent = `Page Count: ${book.pages}`;
+
     const isRead = document.createElement("p");
+    isRead.classList.add("status");
+
+    const cardButtons = document.createElement("div");
+    cardButtons.classList.add("card-buttons");
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
@@ -53,11 +64,14 @@ function createBookCard(book){
     if (book.isRead){
         isRead.textContent = "has been read";
         readBtn.textContent = "Mark Unread";
+        isRead.classList.add("read");
     } else {
         isRead.textContent = "has not been read";
         readBtn.textContent = "Mark Read";
+        isRead.classList.add("unread");
     }
-    card.append(title, author, pages, isRead, deleteBtn, readBtn);
+    cardButtons.append(deleteBtn, readBtn);
+    card.append(title, author, pages, isRead, cardButtons);
 
     return card;
 }
