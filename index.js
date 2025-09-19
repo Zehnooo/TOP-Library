@@ -94,7 +94,6 @@ submitBtn.addEventListener("click", (e) => {
     }
     custForm.reset();
     custDialog.close();
-
 });
 
 
