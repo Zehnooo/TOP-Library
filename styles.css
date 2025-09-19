@@ -14,7 +14,13 @@ body {
     padding: 12px;
     max-width: 90vw;
     margin: 0 auto;
+
 }
+
+.container div:not(#grid) {
+    padding: 18px;
+}
+
 
 #grid {
     display: grid;
@@ -26,14 +32,14 @@ body {
     display: grid;
     padding: 16px;
     grid-template-columns: repeat(2, minmax(auto, 1fr));
-    grid-template-rows: repeat(3, minmax(75px, 1fr));
+    grid-template-rows: repeat(3, minmax(100px, 1fr));
     align-items: center;
     justify-items: center;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
     border-radius: 12px;
-    background-color: #FFFAF0;
-    border-left: 6px solid #9F8170;
+    background-color: #926644;
+    border-left: 10px solid #C3B091;
     gap: 8px;
 }
 
@@ -42,9 +48,10 @@ body {
     padding: 2px;
     border-radius: 12px;
     text-shadow: 0px 1px 2px rgba(0,0,0,0.15);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 .book-card > *:not(.card-button){
-    background-color: #F1E9D2;
+    background-color: #F2F3F4;
 
 }
 .title {
@@ -93,20 +100,44 @@ body {
     gap: 16px;
 }
 
-.card-button, #new-book {
+.card-button {
     flex: 1;
-    max-width: 150px;
+    min-width: 50%;
+    max-width: 250px;
     border: none;
     border-radius: 12px;
-    padding: 8px;
-    background-color: #9F8170;
+    padding: 12px;
+    background-color: #C3B091;
     color: #FFFAF0;
     font-family: Source Sans Pro, sans-serif;
     font-weight: bold;
     text-transform: uppercase;
 }
 
-.card-button:hover {
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+
+}
+.form-buttons button {
+    flex: 1;
+}
+
+#new-book, #close-form, #submit, #submit-more {
+    max-width: 250px;
+    border: none;
+    border-radius: 12px;
+    padding: 12px;
+    background-color: #C3B091;
+    color: #FFFAF0;
+    font-family: Source Sans Pro, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.card-button:hover, #new-book:hover, #close-form:hover, #submit:hover, #submit-more:hover {
     background-color: #6B4423;
 }
 
@@ -123,7 +154,11 @@ body {
 dialog {
     flex-direction: column;
     border-radius: 12px;
-    min-width: 50vw;
+    min-width: 25vw;
+    max-width: 750px;
+}
+dialog h1 {
+    text-align: center;
 }
 
 form {
@@ -149,9 +184,19 @@ form > div {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    text-align: left;
     padding: 12px;
     gap: 12px;
     width: 100%;
+    text-wrap: nowrap;
+}
+
+form > div > input {
+    width: auto;
+}
+form > div > label {
+    font-weight: bold;
+    width: 25%;
 }
 
 .unread {
