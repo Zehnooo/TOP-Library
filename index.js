@@ -52,15 +52,13 @@ function createBookCard(book){
     const isRead = document.createElement("p");
     isRead.classList.add("status");
 
-    const cardButtons = document.createElement("div");
-    cardButtons.classList.add("card-buttons");
-
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
     deleteBtn.addEventListener("click", () => deleteBook(card));
+    deleteBtn.classList.add("delete", "card-button");
 
     const readBtn = document.createElement("button");
-
+    readBtn.classList.add("mark", "card-button");
     if (book.isRead){
         isRead.textContent = "has been read";
         readBtn.textContent = "Mark Unread";
@@ -70,8 +68,8 @@ function createBookCard(book){
         readBtn.textContent = "Mark Read";
         isRead.classList.add("unread");
     }
-    cardButtons.append(deleteBtn, readBtn);
-    card.append(title, author, pages, isRead, cardButtons);
+
+    card.append(title, author, pages, isRead, deleteBtn, readBtn);
 
     return card;
 }
