@@ -16,11 +16,23 @@ html, body {
 }
 
 .book-card {
+    display: grid;
+    padding: 1rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, auto);
+    align-items: center;
+    justify-items: center;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
     border-radius: 12px;
     background-color: #FFFAF0;
     border-left: 6px solid #9F8170;
+}
+
+.book-card button {
+    border: none;
+    border-radius: 12px;
+    width: 50%;
 }
 
 dialog {
