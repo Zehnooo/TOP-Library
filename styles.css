@@ -26,7 +26,7 @@ body {
     display: grid;
     padding: 16px;
     grid-template-columns: repeat(2, minmax(auto, 1fr));
-    grid-template-rows: repeat(3, minmax(auto, 1fr));
+    grid-template-rows: repeat(3, minmax(75px, 1fr));
     align-items: center;
     justify-items: center;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -75,6 +75,12 @@ body {
     grid-row: 2 / 3;
     font-size: 1.2rem;
     width: 90%;
+}
+
+.title, .author, .pages, .status {
+    padding: 8px;
+    text-align: center;
+    text-wrap: balance;
 }
 
 .card-buttons {
