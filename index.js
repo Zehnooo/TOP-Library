@@ -58,6 +58,7 @@ function createBookCard(book){
     deleteBtn.classList.add("delete", "card-button");
 
     const readBtn = document.createElement("button");
+
     readBtn.classList.add("mark", "card-button");
     if (book.isRead){
         isRead.textContent = "has been read";
@@ -69,8 +70,21 @@ function createBookCard(book){
         isRead.classList.add("unread");
     }
 
+    readBtn.addEventListener("click", () => {
+        book.isRead = !book.isRead;
+        if (book.isRead === true) {
+            isRead.textContent = "has been read";
+            readBtn.textContent = "Mark Unread";
+            isRead.classList.add("read");
+            isRead.classList.remove("unread");
+        } else if (book.isRead === false) {
+            isRead.textContent = "has not been read";
+            readBtn.textContent = "Mark Read";
+            isRead.classList.add("unread");
+            isRead.classList.remove("read");
+        }
+    });
     card.append(title, author, pages, isRead, deleteBtn, readBtn);
-
     return card;
 }
 
