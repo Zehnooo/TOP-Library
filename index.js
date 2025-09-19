@@ -48,12 +48,16 @@ function createBookCard(book){
     deleteBtn.textContent = "Delete";
     deleteBtn.addEventListener("click", () => deleteBook(card));
 
+    const readBtn = document.createElement("button");
+
     if (book.isRead){
         isRead.textContent = "has been read";
+        readBtn.textContent = "Mark Unread";
     } else {
         isRead.textContent = "has not been read";
+        readBtn.textContent = "Mark Read";
     }
-    card.append(title, author, pages, isRead, deleteBtn);
+    card.append(title, author, pages, isRead, deleteBtn, readBtn);
 
     return card;
 }
