@@ -10,14 +10,15 @@
 </head>
 <body>
 <div class="container">
-    <h1>My Library</h1>
-    <div><button id="new-book">New Book</button></div>
+    <div>
+        <h1>My Library</h1>
+        <div><button id="new-book">New Book</button></div>
+    </div>
     <div id="grid"></div>
 </div>
 
 <dialog>
-    <button id="close-form">Close</button>
-    <h1>New Book</h1>
+    <h1>Add a Book!</h1>
     <form action="">
         <div>
             <label for="title">Title</label>
@@ -35,7 +36,11 @@
             <label for="read">Read</label>
             <input type="checkbox" id="read">
         </div>
-    <button type="submit" id="submit">Add Book</button>
+        <div class="form-buttons">
+            <button id="close-form">Cancel</button>
+            <button type="submit" id="submit">Save Book to Library</button>
+            <button id="submit-more">Save Book & New</button>
+        </div>
     </form>
 </dialog>
 <script src="index.js"></script>

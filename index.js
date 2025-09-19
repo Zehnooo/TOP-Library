@@ -18,12 +18,14 @@ function addBookToLibrary(title, author, pages, isRead){
 }
 
 // test books
+/*
 addBookToLibrary("Test","Jeffery","24",true);
 addBookToLibrary("Test2","Jefferson","36",false);
 addBookToLibrary("Dune", "Frank Herbert", 412, true);
 addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, false);
 addBookToLibrary("1984", "George Orwell", 328, true);
 addBookToLibrary("The Catcher in the Rye", "J.D. Salinger", 277, false);
+*/
 
 function updateGrid(){
     bookGrid.textContent = "";
@@ -97,9 +99,39 @@ closeBtn.addEventListener("click", () => {custDialog.close();});
 const submitBtn = custForm.querySelector("#submit");
 submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
+    saveBook();
+    updateGrid();
+    custForm.reset();
+    custDialog.close();
+});
+const submitAndNew = document.querySelector("#submit-more");
+submitAndNew.addEventListener("click", (e) => {
+    e.preventDefault();
+    saveBook();
+    updateGrid();
+    custForm.reset();
+})
+
+
+function deleteBook(card){
+    const confirmed = confirm("Are you sure?");
+    if (confirmed){
+        const cardId = card.dataset.bookId;
+
+
+        const bookToDelete = myLibrary.findIndex(book => book.id === cardId);
+
+        if (bookToDelete !== -1){
+            myLibrary.splice(bookToDelete, 1);
+        }
+        console.log(myLibrary);
+        updateGrid();
+    }
+}
+
+function saveBook(){
     const inputs = custForm.querySelectorAll("input");
     const bookData = [];
-
     for (const input of inputs) {
         if (input.type === "checkbox") {
             bookData.push(input.checked);
@@ -125,26 +157,7 @@ submitBtn.addEventListener("click", (e) => {
         const pages = bookData[2];
         const isRead = bookData[3];
         addBookToLibrary(title, author, pages, isRead);
-        updateGrid();
-
-    }
-    custForm.reset();
-    custDialog.close();
-});
 
 
-function deleteBook(card){
-    const confirmed = confirm("Are you sure?");
-    if (confirmed){
-        const cardId = card.dataset.bookId;
-
-
-        const bookToDelete = myLibrary.findIndex(book => book.id === cardId);
-
-        if (bookToDelete !== -1){
-            myLibrary.splice(bookToDelete, 1);
-        }
-        console.log(myLibrary);
-        updateGrid();
     }
 }
