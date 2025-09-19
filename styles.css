@@ -87,7 +87,7 @@ body {
     gap: 16px;
 }
 
-.card-button {
+.card-button, #new-book {
     flex: 1;
     max-width: 150px;
     border: none;
