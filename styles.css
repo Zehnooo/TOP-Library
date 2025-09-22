@@ -162,7 +162,7 @@ body {
 dialog {
     flex-direction: column;
     border-radius: 12px;
-    min-height: 50vh;
+    padding: 12px;
     min-width: 25vw;
     max-width: 750px;
     background: #EFDECD;
