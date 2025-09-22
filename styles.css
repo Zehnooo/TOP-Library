@@ -2,6 +2,7 @@ html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background: #EFDECD;
 }
 
 body {
@@ -161,8 +162,10 @@ body {
 dialog {
     flex-direction: column;
     border-radius: 12px;
+    min-height: 50vh;
     min-width: 25vw;
     max-width: 750px;
+    background: #EFDECD;
 }
 dialog h1 {
     text-align: center;
@@ -181,12 +184,6 @@ dialog::backdrop {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-input {
-    width: 100%;
-    padding: 12px;
-
-}
-
 form > div {
     display: flex;
     align-items: center;
@@ -200,10 +197,22 @@ form > div {
 
 form > div > input {
     width: auto;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #C3B091;
+
 }
+form > div > input:focus {
+    outline: none;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 form > div > label {
     font-weight: bold;
     width: 25%;
+    opacity: .8;
 }
 
 .unread {

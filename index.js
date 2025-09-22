@@ -135,7 +135,7 @@ function deleteBook(card){
         if (bookToDelete !== -1){
             myLibrary.splice(bookToDelete, 1);
         }
-        console.log(myLibrary);
+        setGridDisplay();
         updateGrid();
     }
 }
