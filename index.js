@@ -4,12 +4,27 @@ const custDialog = document.querySelector("dialog");
 const custForm = custDialog.querySelector("form");
 const myLibrary = [];
 
+
+/*
+Old object creation
 function Book(title, author, pages, isRead){
     this.id = crypto.randomUUID();
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.isRead = isRead;
+}
+*/
+
+
+class Book {
+    constructor(title, author, pages, isRead){
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.isRead = isRead;
+    }
 }
 
 function addBookToLibrary(title, author, pages, isRead){
@@ -95,7 +110,7 @@ updateGrid();
 
 newBookBtn.addEventListener("click", () => {custDialog.showModal();})
 const closeBtn = custDialog.querySelector("#close-form");
-closeBtn.addEventListener("click", () => {custDialog.close();});
+closeBtn.addEventListener("click", (e) => {e.preventDefault(e); custDialog.close();});
 const submitBtn = custForm.querySelector("#submit");
 submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
