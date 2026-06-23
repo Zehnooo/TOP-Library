@@ -1,9 +1,49 @@
 const bookGrid = document.querySelector('#grid');
 const newBookBtn = document.querySelector('#new-book');
 const custDialog = document.querySelector("dialog");
-const custForm = custDialog.querySelector("form");
+const custForm = custDialog.querySelector("#book-form");
+const formInputs = custForm.querySelectorAll('input');
+/*
+const titleInput =
+const authorInput =
+const pageInput =
+const readInput =
+
+ */
 const myLibrary = [];
 
+custForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!custForm.checkValidity()) {
+        custForm.reportValidity();
+        return;
+    }
+    const data = new FormData(e.target);
+    const title = data.get('title');
+    const author = data.get('author');
+    const pages = data.get('pages');
+    const isRead = data.get('isRead');
+    console.log({title, author, pages, isRead});
+    addBookToLibrary(title, author, pages, isRead);
+    setGridDisplay();
+    updateGrid();
+    custForm.reset();
+    custDialog.close();
+
+});
+
+for (const input of formInputs) {
+    console.log(input);
+    input.addEventListener('input', (e) => {
+        if (input.validity.valueMissing) {
+            input.setCustomValidity('This field is required.');
+        } else if (input.validity.rangeUnderflow) {
+            input.setCustomValidity('Page count must be at least 1.');
+        } else {
+            input.setCustomValidity('');
+        }
+    });
+}
 function setGridDisplay() {
     myLibrary.length === 0
         ? (bookGrid.style.display = "none")
@@ -102,20 +142,21 @@ closeBtn.addEventListener("click", (e) => {
     custDialog.close();
 });
 
+/*
 const submitBtn = custForm.querySelector("#submit");
 submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    saveBook();
+    // saveBook();
     setGridDisplay();
     updateGrid();
     custForm.reset();
     custDialog.close();
 });
+*/
 
 const submitAndNew = document.querySelector("#submit-more");
 submitAndNew.addEventListener("click", (e) => {
     e.preventDefault();
-    saveBook();
     setGridDisplay();
     updateGrid();
     custForm.reset();
@@ -134,30 +175,4 @@ function deleteBook(card){
     }
 }
 
-function saveBook(){
-    const inputs = custForm.querySelectorAll("input");
-    const bookData = [];
-    for (const input of inputs) {
-        if (input.type === "checkbox") {
-            bookData.push(input.checked);
-        } else if (input.type === "text") {
-            if (input.value === "") {
-                alert("Missing book info. Please try again.");
-                return;
-            } else {
-                bookData.push(input.value);
-            }
-        } else if (input.type === "number") {
-            if (input.value === "" || Number(input.value) <= 0) {
-                alert("Page count cannot be empty or less than zero");
-                return;
-            } else {
-                bookData.push(Number(input.value));
-            }
-        }
-    }
-    if (bookData.length === 4){
-        const [title, author, pages, isRead] = bookData;
-        addBookToLibrary(title, author, pages, isRead);
-    }
-}
+
