@@ -1,8 +1,104 @@
 const bookGrid = document.querySelector('#grid');
 const newBookBtn = document.querySelector('#new-book');
 const custDialog = document.querySelector("dialog");
-const custForm = custDialog.querySelector("form");
+const custForm = custDialog.querySelector("#book-form");
+const formInputs = custForm.querySelectorAll('input');
+
+const inputElements = {
+    'title': document.querySelector('#title'),
+    'author': document.querySelector('#author'),
+    'pages': document.querySelector('#pages'),
+}
+
+const errorElements = {
+    'title': document.querySelector('#title-err'),
+    'author': document.querySelector('#author-err'),
+    'pages': document.querySelector('#pages-err'),
+}
+
 const myLibrary = [];
+
+custDialog.addEventListener('close', (e) => {
+    custForm.reset();
+    for (const input of formInputs){
+        if (input.id === 'read') { continue; }
+        const errEl = errorElements[input.id];
+        errEl.className = 'error';
+    }
+})
+
+custForm.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        custForm.requestSubmit();
+    }
+});
+
+custForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    for (const input of formInputs){
+        if (input.id === 'read') { continue; }
+        if (!input.validity.valid) {
+            const errEl = errorElements[input.id];
+            showError(input, errEl);
+        }
+    }
+
+    const data = new FormData(e.target);
+    const title = data.get('title').trim();
+    const author = data.get('author').trim();
+    const pages = data.get('pages');
+    const isRead = data.get('isRead');
+
+    let missingData = false;
+
+    if (title === '' || !title) {
+        showError(inputElements.title, errorElements.title, 'You must enter a title.');
+        missingData = true;
+    }
+
+    if (author === '' || !author) {
+        showError(inputElements.author, errorElements.author, 'You must enter the author.');
+        missingData = true;
+    }
+    if (missingData === true) { return; }
+    console.log({title, author, pages, isRead});
+    addBookToLibrary(title, author, pages, isRead);
+    setGridDisplay();
+    updateGrid();
+    custForm.reset();
+    inputElements.title.focus();
+});
+
+for (const input of formInputs){
+    setInputValidation(input);
+}
+
+function setInputValidation(input){
+    let errEl = errorElements[input.id];
+    if (!errEl) { return; }
+
+    input.addEventListener('input', (e) => {
+        if (input.validity.valid){
+            errEl.textContent = '';
+            errEl.className = 'error'
+        } else {
+            showError(input, errEl);
+        }
+    });
+}
+
+function showError(inputEl, errorEl, error = null){
+    if (inputEl.validity.valueMissing){
+        errorEl.textContent = 'Field cannot be empty';
+    } else if (inputEl.validity.rangeUnderflow){
+        errorEl.textContent = `You must enter a number bigger than or equal to the minimum (${inputEl.min})`;
+    } else if (error) {
+        errorEl.textContent = error;
+    }
+    errorEl.className = 'error active';
+}
 
 function setGridDisplay() {
     myLibrary.length === 0
@@ -102,25 +198,6 @@ closeBtn.addEventListener("click", (e) => {
     custDialog.close();
 });
 
-const submitBtn = custForm.querySelector("#submit");
-submitBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    saveBook();
-    setGridDisplay();
-    updateGrid();
-    custForm.reset();
-    custDialog.close();
-});
-
-const submitAndNew = document.querySelector("#submit-more");
-submitAndNew.addEventListener("click", (e) => {
-    e.preventDefault();
-    saveBook();
-    setGridDisplay();
-    updateGrid();
-    custForm.reset();
-});
-
 function deleteBook(card){
     const confirmed = confirm("Are you sure?");
     if (confirmed){
@@ -134,30 +211,4 @@ function deleteBook(card){
     }
 }
 
-function saveBook(){
-    const inputs = custForm.querySelectorAll("input");
-    const bookData = [];
-    for (const input of inputs) {
-        if (input.type === "checkbox") {
-            bookData.push(input.checked);
-        } else if (input.type === "text") {
-            if (input.value === "") {
-                alert("Missing book info. Please try again.");
-                return;
-            } else {
-                bookData.push(input.value);
-            }
-        } else if (input.type === "number") {
-            if (input.value === "" || Number(input.value) <= 0) {
-                alert("Page count cannot be empty or less than zero");
-                return;
-            } else {
-                bookData.push(Number(input.value));
-            }
-        }
-    }
-    if (bookData.length === 4){
-        const [title, author, pages, isRead] = bookData;
-        addBookToLibrary(title, author, pages, isRead);
-    }
-}
+
