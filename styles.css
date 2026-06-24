@@ -123,6 +123,7 @@ body {
 
 .form-buttons {
     display: flex;
+    gap: .6rem;
     justify-content: flex-end;
     align-items: center;
     width: 100%;
@@ -162,17 +163,24 @@ body {
 dialog {
     flex-direction: column;
     border-radius: 12px;
-    padding: 12px;
+    padding: 1rem;
+    margin: auto;
     min-width: 25vw;
-    max-width: 750px;
+    max-width: 400px;
+    width: 100%;
     background: #EFDECD;
+    overflow-x: hidden;
 }
 dialog h1 {
     text-align: center;
 }
 
 form {
-    width: 95%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+    gap: 1rem;
 }
 
 dialog::backdrop {
@@ -184,32 +192,7 @@ dialog::backdrop {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-form > div {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: left;
-    padding: 12px;
-    gap: 12px;
-    width: 100%;
-    text-wrap: nowrap;
-}
-
-form > div > input {
-    width: auto;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    background-color: #C3B091;
-
-}
-form > div > input:focus {
-    outline: none;
-    border: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-form > div > label {
+.form-field > label {
     font-weight: bold;
     width: 25%;
     opacity: .8;
@@ -220,4 +203,60 @@ form > div > label {
 }
 .read {
     color: #00563B;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: left;
+    gap: 12px;
+    width: 100%;
+    text-wrap: nowrap;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    width: 100%;
+}
+
+.form-field input {
+    width: auto;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #C3B091;
+}
+
+.form-field input:focus {
+    outline: none;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-field input:user-invalid {
+    border: 1px solid red;
+}
+
+.form-field label:has(+ input:user-invalid) {
+    font-style: italic;
+    color: red;
+}
+
+.error {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.error.active {
+    opacity: 1;
+    display: inline-flex;
+    background: #C51E3A;
+    color: #E5E4E2;
+    padding: .2rem .4rem;
+    border-radius: 4px;
+    text-align: center;
 }

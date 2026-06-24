@@ -19,7 +19,7 @@
 
 <dialog>
     <h1>Add a Book!</h1>
-    <form action="" id="book-form">
+    <form action="" id="book-form" novalidate>
         <div class="form-group">
             <div class="form-field">
                 <label for="title">Title</label>
@@ -39,16 +39,15 @@
             <label for="pages">Page Count</label>
             <input type="number" min="1" id="pages" name="pages" required>
             </div>
-            <span class="form-err" id="page-err"></span>
+            <span class="form-err" id="pages-err"></span>
         </div>
-        <div>
+        <div class="form-group is-read">
             <label for="read">Read</label>
             <input type="checkbox" id="read" name="isRead">
         </div>
         <div class="form-buttons">
-            <button id="close-form">Cancel</button>
+            <button id="close-form">Close</button>
             <button type="submit" id="submit">Save</button>
-            <button id="submit-more">Save & New</button>
         </div>
     </form>
 </dialog>
