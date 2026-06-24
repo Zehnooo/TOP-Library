@@ -62,6 +62,12 @@ custForm.addEventListener('submit', (e) => {
         showError(inputElements.author, errorElements.author, 'You must enter the author.');
         missingData = true;
     }
+
+    if (pages === '' || !pages){
+        showError(inputElements.pages, errorElements.pages, 'You must enter the page count.');
+        missingData = true;
+    }
+
     if (missingData === true) { return; }
     console.log({title, author, pages, isRead});
     addBookToLibrary(title, author, pages, isRead);
